@@ -9,10 +9,6 @@ export async function GET(req: NextRequest) {
   const annual = parseInt(searchParams.get('annual') ?? '0');
   const tools = parseInt(searchParams.get('tools') ?? '1');
 
-  const savingsText =
-    savings > 0
-      ? `$${savings.toLocaleString()}/mo savings found`
-      : 'AI spend audit complete';
 
   return new ImageResponse(
     (

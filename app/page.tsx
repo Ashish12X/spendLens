@@ -76,10 +76,10 @@ export default function HomePage() {
             <span className="text-slate-100">for AI tools.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Most startups have no idea they're on the wrong plan. SpendLens audits your Cursor, Claude, 
-            ChatGPT, and GitHub Copilot spend — and tells you exactly where the money is going.
-          </p>
+        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Most startups have no idea they&apos;re on the wrong plan. SpendLens audits your Cursor, Claude,
+          ChatGPT, and GitHub Copilot spend &mdash; and tells you exactly where the money is going.
+        </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link href="/audit" className="btn-primary text-base px-8 py-3.5">
@@ -125,7 +125,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">How it works</h2>
-            <p className="text-slate-400 text-lg">Three steps to knowing exactly what you're overspending.</p>
+            <p className="text-slate-400 text-lg">Three steps to knowing exactly what you&apos;re overspending.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -184,7 +184,7 @@ export default function HomePage() {
             {SOCIAL_PROOF.map((item) => (
               <div key={item.name} className="glass-card rounded-xl p-6">
                 <div className="text-yellow-400 text-sm mb-4">★★★★★</div>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">"{item.quote}"</p>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">&quot;{item.quote}&quot;</p>
                 <div>
                   <div className="font-semibold text-sm">{item.name}</div>
                   <div className="text-slate-500 text-xs">{item.role}</div>
@@ -203,7 +203,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/5 to-purple-600/5" />
             <div className="relative">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                Find out what you're <span className="gradient-text">actually spending</span>
+                Find out what you&apos;re <span className="gradient-text">actually spending</span>
               </h2>
               <p className="text-slate-400 mb-8">
                 Takes 2 minutes. No account. No credit card. Just answers.

@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import type { ToolId, UseCase } from './pricing-data';
 
 export const toolInputSchema = z.object({
   toolId: z.enum([

@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import {
   TrendingDown,
-  Share2,
   CheckCircle,
   AlertTriangle,
   ArrowRight,
@@ -43,6 +43,23 @@ export default function AuditResultPage() {
   const [honeypot, setHoneypot] = useState('');
   const heroRef = useRef<HTMLDivElement>(null);
 
+  const fetchAiSummary = useCallback(async (reportData: AuditReport & { id: string }) => {
+    setSummaryLoading(true);
+    try {
+      const res = await fetch('/api/summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...reportData }),
+      });
+      const data = await res.json();
+      setAiSummary(data.summary);
+    } catch {
+      setAiSummary(null);
+    } finally {
+      setSummaryLoading(false);
+    }
+  }, []);
+
   // Load report from session storage or API
   useEffect(() => {
     const sessionData = sessionStorage.getItem('spendlens_result');
@@ -52,9 +69,7 @@ export default function AuditResultPage() {
         if (parsed.id === id) {
           setReport(parsed);
           setLoading(false);
-          // Fetch AI summary after showing results
           fetchAiSummary(parsed);
-          // Show lead modal after 3s for high-savings cases
           if (parsed.totalMonthlySavings > 100) {
             setTimeout(() => setShowLeadModal(true), 4000);
           }
@@ -80,24 +95,7 @@ export default function AuditResultPage() {
       .catch(() => {
         setLoading(false);
       });
-  }, [id]);
-
-  async function fetchAiSummary(reportData: AuditReport & { id: string }) {
-    setSummaryLoading(true);
-    try {
-      const res = await fetch('/api/summary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...reportData }),
-      });
-      const data = await res.json();
-      setAiSummary(data.summary);
-    } catch {
-      setAiSummary(null);
-    } finally {
-      setSummaryLoading(false);
-    }
-  }
+  }, [id, fetchAiSummary]);
 
   async function submitLead() {
     if (!leadForm.email || !report) return;
@@ -162,7 +160,7 @@ export default function AuditResultPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-md">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <a href="/" className="text-indigo-400 font-black tracking-tight text-lg">SpendLens</a>
+          <Link href="/" className="text-indigo-400 font-black tracking-tight text-lg">SpendLens</Link>
           <div className="flex items-center gap-3">
             <button onClick={copyShareUrl} className="btn-secondary text-sm py-2 px-4 flex items-center gap-2">
               {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -184,10 +182,10 @@ export default function AuditResultPage() {
                 <CheckCircle className="w-4 h-4" /> Well optimized
               </div>
               <h1 className="text-5xl sm:text-6xl font-black mb-4">
-                <span className="gradient-text-green">You're spending well.</span>
+                <span className="gradient-text-green">You&apos;re spending well.</span>
               </h1>
               <p className="text-slate-400 text-xl max-w-2xl mx-auto">
-                Your AI stack is appropriately configured for your team size and use case. 
+                Your AI stack is appropriately configured for your team size and use case.
                 No meaningful optimizations found.
               </p>
             </>
@@ -245,7 +243,7 @@ export default function AuditResultPage() {
           <div className="mb-10 p-6 rounded-2xl border border-slate-700 bg-slate-900/50 text-center">
             <h3 className="font-semibold mb-2">Stay ahead as prices change</h3>
             <p className="text-slate-400 text-sm mb-4">
-              We'll notify you when new optimizations apply to your stack.
+              We&apos;ll notify you when new optimizations apply to your stack.
             </p>
             <button onClick={() => setShowLeadModal(true)} className="btn-primary text-sm">
               <Mail className="w-4 h-4" /> Notify me
@@ -313,9 +311,9 @@ export default function AuditResultPage() {
 
         {/* Start new audit */}
         <div className="text-center mt-10">
-          <a href="/audit" className="text-sm text-slate-500 hover:text-indigo-400 transition-colors inline-flex items-center gap-1.5">
+          <Link href="/audit" className="text-sm text-slate-500 hover:text-indigo-400 transition-colors inline-flex items-center gap-1.5">
             <RefreshCw className="w-4 h-4" /> Run a new audit
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -346,7 +344,7 @@ export default function AuditResultPage() {
                 </h3>
                 <p className="text-slate-400 text-sm mb-6">
                   {isHighSavings
-                    ? `We'll email you the complete breakdown — and how to capture that $${formatCurrency(report.totalMonthlySavings)}/mo.`
+                    ? `We\'ll email you the complete breakdown — and how to capture that $${formatCurrency(report.totalMonthlySavings)}/mo.`
                     : 'Get the audit link in your inbox to revisit later.'}
                 </p>
 

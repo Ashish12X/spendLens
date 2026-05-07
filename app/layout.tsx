@@ -9,6 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? 'https://spendlens.credex.rocks'
+  ),
   title: 'SpendLens — Free AI Spend Audit for Startups',
   description:
     'Find out if your startup is overpaying for AI tools. Get an instant audit of your Cursor, Claude, ChatGPT, and GitHub Copilot spend — with specific recommendations and real savings numbers.',

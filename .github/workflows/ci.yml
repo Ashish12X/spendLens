@@ -26,9 +26,17 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder_anon_key
+          NEXT_PUBLIC_APP_URL: https://spendlens.credex.rocks
 
       - name: Run TypeScript type check
         run: npx tsc --noEmit
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder_anon_key
+          NEXT_PUBLIC_APP_URL: https://spendlens.credex.rocks
 
       - name: Run tests
         run: npm test -- --coverage --passWithNoTests

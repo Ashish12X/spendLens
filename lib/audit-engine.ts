@@ -59,39 +59,7 @@ export interface AuditReport {
   createdAt?: string;
 }
 
-// ============================================================
-// ALTERNATIVE TOOL RECOMMENDATIONS
-// Based on use case and primary function
-// ============================================================
-const CODING_IDE_ALTERNATIVES: Record<ToolId, { toolId: ToolId; reason: string } | null> = {
-  cursor: null, // Cursor is typically best-in-class for coding
-  github_copilot: {
-    toolId: 'cursor',
-    reason: 'Cursor Pro ($20/user) provides superior agentic coding with multi-file edits vs GitHub Copilot Business ($19/user) which lacks agent-mode capabilities at comparable price point.',
-  },
-  windsurf: {
-    toolId: 'cursor',
-    reason: 'Cursor Pro ($20/user) has a larger model selection and broader ecosystem support than Windsurf Pro ($15/user), offering better ROI for teams needing cutting-edge model access.',
-  },
-  claude: null,
-  chatgpt: null,
-  anthropic_api: null,
-  openai_api: null,
-  gemini: null,
-};
-
-const WRITING_ALTERNATIVES: Record<string, { toolId: ToolId; planId: string; reason: string } | null> = {
-  chatgpt_team: {
-    toolId: 'claude',
-    planId: 'team',
-    reason: 'Claude Team ($30/user) and ChatGPT Team ($30/user) are price-equivalent — Claude consistently benchmarks higher on long-form writing quality (HELM 2024). Switch costs are low; consider consolidating on one.',
-  },
-  chatgpt_enterprise: {
-    toolId: 'claude',
-    planId: 'team',
-    reason: "ChatGPT Enterprise costs ~$60/user vs Claude Team at $30/user. Unless you need OpenAI-specific integrations, Claude Team covers 90% of writing workflows at half the cost.",
-  },
-};
+// Alternative tool reasoning is embedded directly in evaluateCrossTool() below.
 
 // ============================================================
 // PLAN FIT EVALUATION

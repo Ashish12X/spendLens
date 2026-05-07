@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, ArrowLeft, Plus, Trash2, Info, ChevronDown, Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { ALL_TOOLS, type ToolId, type UseCase } from '@/lib/pricing-data';
 import type { AuditFormData, UserToolInput } from '@/lib/audit-engine';
 import { cn } from '@/lib/utils';
@@ -28,7 +29,6 @@ export default function AuditPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load persisted state
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -37,7 +37,6 @@ export default function AuditPage() {
         if (data.useCase) setUseCase(data.useCase);
         if (data.teamSize) setTeamSize(data.teamSize);
         if (data.tools && data.tools.length > 0) setSelectedTools(data.tools);
-        // Don't restore step — start fresh from step 1
       }
     } catch {
       // Ignore parse errors
@@ -126,7 +125,7 @@ export default function AuditPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <a href="/" className="text-indigo-400 font-black tracking-tight text-lg">SpendLens</a>
+          <Link href="/" className="text-indigo-400 font-black tracking-tight text-lg">SpendLens</Link>
           {/* Step indicator */}
           <div className="flex items-center gap-2 text-sm">
             {(['use-case', 'tools', 'review'] as FormStep[]).map((s, i) => (
