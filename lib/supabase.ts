@@ -6,7 +6,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 // Create a dummy client if env vars are missing so we don't crash on import
 export const supabase = supabaseUrl && supabaseAnonKey 
   ? createClient(supabaseUrl, supabaseAnonKey)
-  : null as any;
+  : null;
 
 // Server-side client with service role key (for API routes only)
 export function getSupabaseAdmin() {
