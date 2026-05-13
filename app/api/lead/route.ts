@@ -4,7 +4,7 @@ import { leadCaptureSchema } from '@/lib/validations';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { v4 as uuidv4 } from 'uuid';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Rate limiting for lead capture
 const leadRateLimit = new Map<string, { count: number; resetAt: number }>();
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
 
     // Send confirmation email
     try {
-      if (process.env.RESEND_API_KEY) {
+      if (process.env.RESEND_API_KEY && resend) {
         const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL}/audit/${auditId}`;
 
         await resend.emails.send({
